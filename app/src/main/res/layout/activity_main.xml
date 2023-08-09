@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="1普通通知" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="2大图通知" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/text3"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="3长文本通知" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/text4"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="4长文本条通知" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/texta"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="4长文本条通知" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/text5"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="5消息通知" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/textb"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="5消息通知" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/text6"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="6进度通知" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/text7"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="自定义通知" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/text8"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="deepLink" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/text9"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="down" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/text10"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="log" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/text11"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:text="cpu" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/appimage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:id="@+id/llc_web"
+                android:layout_height="wrap_content"/>
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

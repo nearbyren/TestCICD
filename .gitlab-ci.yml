@@ -1,0 +1,58 @@
+image: jangrewe/gitlab-ci-android # 用来编译 android 项目的镜像
+# image: runmymind/docker-android-sdk
+
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false" # 禁用 gradle 守护进程
+  # ANDROID_COMPILE_SDK: "30.0.2"
+  # ANDROID_BUILD_TOOLS: "30.0.2"
+  # ANDROID_SDK_TOOLS: "4333796"
+
+before_script:
+  #  配置 gradle 的缓存目录
+  - export GRADLE_USER_HOME=/cache/.gradle
+  #  获取权限
+  - chmod +x ./gradlew
+  # - chmod +x ./update-version-code
+#定义流水线全局可使用的阶段，阶段允许有灵活的多级管道，阶段元素的排序定义了作业执行的顺序。
+#默认有三个阶段， build 、test 、deploy 三个阶段，即 构建 、测试 、部署 。
+stages:
+  - verify
+  - build
+  - dockerpush
+  - deploy
+
+#单元测试
+unit-test:
+  # 属于哪个阶段
+  stage: verify
+  #  获取对应标签名称的Runners来运行jobs
+  tags:
+    # 标签名称
+    - test-cicd
+  # 执行脚本
+  script:
+    - echo unit-test
+
+#java编译
+java-package:
+  stage: build
+  tags:
+    - test-cicd
+  script:
+    - echo build
+
+#push镜像
+docker-push:
+  stage: dockerpush
+  tags:
+    - test-cicd
+  script:
+    - echo docker-push
+
+#deploy
+service-1:
+  stage: deploy
+  tags:
+    - test-cicd
+  script:
+    - echo deploy

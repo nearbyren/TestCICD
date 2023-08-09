@@ -1,0 +1,145 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'channel'//VasDolly打包插件
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.test.testcicd"
+        minSdk 21
+        targetSdk 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "room.schemaLocation":"$projectDir/schemas".toString(),
+                        "room.incremental":"true",
+                        "room.expandProjection":"true"]
+            }
+        }
+    }
+    signingConfigs {
+        release {
+            try {
+                storeFile file("./web.jks")
+                storePassword "web123"
+                keyAlias "web"
+                keyPassword "web123"
+                v1SigningEnabled true//v1版本签名
+                v2SigningEnabled true//v2版本签名
+            } catch (ex) {
+                throw new Exception(ex.toString())
+            }
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
+        debug {
+            shrinkResources false
+            signingConfig signingConfigs.release
+            debuggable true
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+
+
+
+//Version Code的前缀。年月日，例如20181203。
+def getVersionCodePrefix() {
+    def date = new Date()
+    def versionCode = date.format('MMddHHmmss')
+    return versionCode
+}
+
+android.applicationVariants.all { variant ->
+    variant.outputs.all {output->
+        //在这里修改apk文件名 月日时分 版本
+        outputFileName = "testcicd.apk"
+        output.getPackageApplication().outputDirectory =  new File("./releaseApks")
+    }
+}
+//gradle强制刷新依赖build.gradle增加配置
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+//根据已有的基准包生成多渠道包
+rebuildChannel {
+    //指定渠道文件
+    channelFile = file("channel.txt")
+    /**
+     * 基础包的路径 baseReleaseApk
+     * 渠道包输出目录 releaseOutputDir
+     */
+//    baseReleaseApk = file("./release/05151711241.0.apk")
+    baseReleaseApk = new File(project.rootDir.absolutePath + "/app/releaseApks/testcicd.apk")
+    //渠道包输出目录
+    debugOutputDir = file("apk")
+    releaseOutputDir = file("apk")
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    api 'com.leon.channel:helper:2.0.3'
+    api "com.tencent:mmkv:1.3.0"
+    api 'com.getkeepsafe.relinker:relinker:1.4.3'
+//    implementation 'com.github.1079374315:GSLS_Tool:v1.4.2.9'
+    api 'ejiayou.aop.module:aop-module:1.1.2'
+//    api 'ejiayou.uikit.module:uikit-module:1.1.2'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'//lifecycleScope
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'//viewModelScope
+    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+    implementation 'org.conscrypt:conscrypt-android:2.2.1'
+
+    def room_version = "2.3.0"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version" // Kotlin 使用 kapt 替代 annotationProcessor
+
+    // 可选 - Kotlin扩展和协程支持
+    implementation "androidx.room:room-ktx:$room_version"
+    // 可选 - Guava 支持, including Optional and ListenableFuture
+    implementation "androidx.room:room-guava:$room_version"
+
+}
+//gradle强制刷新依赖build.gradle增加配置
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
