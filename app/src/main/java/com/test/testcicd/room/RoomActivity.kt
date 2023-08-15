@@ -77,8 +77,10 @@ class RoomActivity : AppCompatActivity() {
                     if (ageQeury > 0) {
                         val list = mUserFlowDao!!.queryAgeUser(ageQeury)
                         withContext(Dispatchers.Main) {
-                            content?.text =
-                                "${list[0].name}, ${list[0].age}, ${list[0].grender}, ${list[0].code}"
+                            if(list.size>0){
+                                content?.text =
+                                    "${list[0].name}, ${list[0].age}, ${list[0].grender}, ${list[0].code}"
+                            }
                         }
                     }
                 }

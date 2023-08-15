@@ -219,7 +219,7 @@ class MainActivity : AppCompatActivity() {
         val text11 = findViewById<AppCompatButton>(R.id.text11)
 
         text11.setOnClickListener {
-            startActivity(Intent(MainActivity@ this, RoomActivity::class.java))
+
             // 图片压缩
             val bitmap = zipBitMap()
             appimage.setImageBitmap(bitmap)
@@ -228,6 +228,10 @@ class MainActivity : AppCompatActivity() {
             // 替换原来图片进行渲染
             text11.text = "zipBitMap After"
         }
+        findViewById<AppCompatButton>(R.id.text12).setOnClickListener {
+            startActivity(Intent(MainActivity@ this, RoomActivity::class.java))
+        }
+
         initNetWork()
 
     }
