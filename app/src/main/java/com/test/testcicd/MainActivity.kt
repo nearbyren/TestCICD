@@ -1,7 +1,10 @@
 package com.test.testcicd
 
+import android.app.Service
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -9,6 +12,7 @@ import android.net.*
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.IBinder
 import android.util.Log
 import android.webkit.WebView
 import android.widget.Toast
@@ -72,6 +76,43 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+    }
+
+    var aidlInterface: MyAIDLInterface? = null
+    
+    private fun aidl() {
+        val intent = Intent()
+        intent.action = "com.test.testcicd.service.MyService"
+        intent.setComponent(ComponentName("com.test.testcicd", "com.test.testcicd.service.MyService"))
+
+        //启动服务 向服务发送请求 处理业务场景并获取返回结果
+        bindService(intent, object : ServiceConnection {
+            override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
+                println("aidl onServiceConnected")
+                aidlInterface = MyAIDLInterface.Stub.asInterface(p1)
+                aidlInterface?.let {
+                    it.commonMethod()
+                    it.setStringText("发送")
+                    it.register(callBackAIDLInterface)
+                }
+            }
+
+            override fun onServiceDisconnected(p0: ComponentName?) {
+                println("aidl onServiceConnected")
+                aidlInterface?.let {
+                    it.unregister(callBackAIDLInterface)
+                }
+
+            }
+
+        }, Service.BIND_AUTO_CREATE)
+    }
+
+    val callBackAIDLInterface = object : CallBackAIDLInterface.Stub() {
+        override fun callBack() {
+            println("aidl callBack")
+        }
 
     }
 
@@ -210,6 +251,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<AppCompatButton>(R.id.text8).setOnClickListener { deepLink() }
         findViewById<AppCompatButton>(R.id.text9).setOnClickListener { down() }
         findViewById<AppCompatButton>(R.id.text10).setOnClickListener { testChan() }
+        findViewById<AppCompatButton>(R.id.text13).setOnClickListener { aidl() }
         val llcWeb = findViewById<LinearLayoutCompat>(R.id.llc_web)
         val webView = WebView(this)
         llcWeb.addView(webView)

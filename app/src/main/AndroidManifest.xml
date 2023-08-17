@@ -38,6 +38,15 @@
                 <action android:name="ejiayou.datacenter.module.apk" />
             </intent-filter>
         </receiver>
+
+        <service
+            android:name=".service.MyService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.test.testcicd.service.MyService"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

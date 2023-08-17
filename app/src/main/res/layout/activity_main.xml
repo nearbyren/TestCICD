@@ -154,6 +154,13 @@
         android:layout_height="80dp"
         app:layout_constraintTop_toBottomOf="@id/text11"
         tools:ignore="MissingConstraints" />
-
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/text13"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="aidl"
+        app:layout_constraintTop_toBottomOf="@id/llc_web"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
