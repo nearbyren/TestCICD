@@ -4,6 +4,8 @@ plugins {
     id 'channel'//VasDolly打包插件
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'com.huawei.agconnect'
+
 }
 
 android {
@@ -118,7 +120,6 @@ rebuildChannel {
 }
 
 dependencies {
-
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
@@ -151,7 +152,8 @@ dependencies {
     // 可选 - Guava 支持, including Optional and ListenableFuture
     implementation "androidx.room:room-guava:$room_version"
 
-
+//    implementation 'nearby.app:login-m:1.1.0'
+    implementation 'nearby.app:uikit-lib:1.1.0'
 
 
 
@@ -182,6 +184,9 @@ dependencies {
     implementation   "androidx.compose.ui:ui:1.1.1"
 
     implementation   "androidx.navigation:navigation-compose:2.4.1"
+
+    implementation 'com.huawei.agconnect:agconnect-core:1.9.1.300'
+
 
 
 }

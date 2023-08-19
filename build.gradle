@@ -1,18 +1,21 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
+        maven {url 'https://developer.huawei.com/repo/'}
         maven { url 'https://maven.aliyun.com/repository/central/' }
         maven { url 'https://maven.aliyun.com/repository/public/' }
         maven { url 'https://maven.aliyun.com/repository/jcenter/' }
         maven { url 'https://maven.aliyun.com/repository/google/' }
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         maven { url "https://jitpack.io" }
-        maven { url "https://plugins.gradle.org/m2/" }
+
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
         classpath 'com.leon.channel:plugin:2.0.3'
+        // 增加AGC插件配置，请您参见AGC插件依赖关系选择合适的AGC插件版本。
+        classpath 'com.huawei.agconnect:agcp:1.9.1.300'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -24,13 +27,13 @@ def mavenUserName = properties.getProperty('MAVEN_USERNAME')
 def mavenPassword = properties.getProperty('MAVEN_PASSWORD')
 allprojects {
     repositories {
+        maven {url 'https://developer.huawei.com/repo/'}
         maven { url 'https://maven.aliyun.com/repository/central/' }
         maven { url 'https://maven.aliyun.com/repository/public/' }
         maven { url 'https://maven.aliyun.com/repository/jcenter/' }
         maven { url 'https://maven.aliyun.com/repository/google/' }
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         maven { url "https://jitpack.io" }
-        maven { url "https://plugins.gradle.org/m2/" }
         maven {
             url MAVEN_SNAPSHOT_URL
             credentials(HttpHeaderCredentials) {
